@@ -1,7 +1,7 @@
 /*!
  * Copyright (c) 2023-2026 Digital Bazaar, Inc.
  */
-import {cryptosuite} from '../lib/index.js';
+import {createVerifyCryptosuite} from '../lib/index.js';
 import {DataIntegrityProof} from '@digitalbazaar/data-integrity';
 import {expect} from 'chai';
 import jsigs from 'jsonld-signatures';
@@ -25,7 +25,7 @@ function addTests({nistSecurityLevel, signedFixture}) {
 
   it(`should verify ${label} signed fixture`, async () => {
     const result = await jsigs.verify(signedFixture, {
-      suite: new DataIntegrityProof({cryptosuite}),
+      suite: new DataIntegrityProof({cryptosuite: createVerifyCryptosuite()}),
       purpose: new AssertionProofPurpose(),
       documentLoader
     });

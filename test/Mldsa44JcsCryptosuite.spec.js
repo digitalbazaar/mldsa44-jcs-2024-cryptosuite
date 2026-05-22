@@ -12,7 +12,10 @@ import {
 
 import * as MldsaMultikey from '@digitalbazaar/mldsa-multikey';
 import {DataIntegrityProof} from '@digitalbazaar/data-integrity';
-import {cryptosuite as mldsa44JcsCryptosuite} from '../lib/index.js';
+import {
+  createSignCryptosuite,
+  createVerifyCryptosuite
+} from '../lib/index.js';
 
 import {loader} from './documentLoader.js';
 
@@ -21,10 +24,13 @@ const documentLoader = loader.build();
 describe('Mldsa44JcsCryptosuite', () => {
   describe('exports', () => {
     it('it should have proper exports', async () => {
+      let mldsa44JcsCryptosuite = createSignCryptosuite();
       should.exist(mldsa44JcsCryptosuite);
       mldsa44JcsCryptosuite.name.should.equal('mldsa44-jcs-2024');
       mldsa44JcsCryptosuite.requiredAlgorithm.should.eql(['ML-DSA-44']);
       mldsa44JcsCryptosuite.canonize.should.be.a('function');
+      mldsa44JcsCryptosuite.createVerifyData.should.be.a('function');
+      mldsa44JcsCryptosuite = createVerifyCryptosuite();
       mldsa44JcsCryptosuite.createVerifier.should.be.a('function');
       mldsa44JcsCryptosuite.createVerifyData.should.be.a('function');
     });
@@ -33,6 +39,7 @@ describe('Mldsa44JcsCryptosuite', () => {
   describe('canonize()', () => {
     it('should canonize using JCS', async () => {
       const unsignedCredential = JSON.parse(JSON.stringify(credential));
+      const mldsa44JcsCryptosuite = createSignCryptosuite();
 
       let result;
       let error;
@@ -63,6 +70,7 @@ describe('Mldsa44JcsCryptosuite', () => {
 
   describe('createVerifier()', () => {
     it('should create a verifier with ML-DSA Multikey', async () => {
+      const mldsa44JcsCryptosuite = createVerifyCryptosuite();
       let verifier;
       let error;
       try {
@@ -81,6 +89,7 @@ describe('Mldsa44JcsCryptosuite', () => {
     });
 
     it('should fail to create a verifier w/ unsupported key type', async () => {
+      const mldsa44JcsCryptosuite = createVerifyCryptosuite();
       let verifier;
       let error;
       const keyPair = await MldsaMultikey.from({
@@ -110,7 +119,7 @@ describe('Mldsa44JcsCryptosuite', () => {
       const date = '2026-04-12T21:29:24Z';
       const suite = new DataIntegrityProof({
         signer: keyPair.signer(), date,
-        cryptosuite: mldsa44JcsCryptosuite
+        cryptosuite: createSignCryptosuite()
       });
 
       let error;
@@ -139,7 +148,7 @@ describe('Mldsa44JcsCryptosuite', () => {
         const date = '2026-04-12T21:29:24Z';
         const suite = new DataIntegrityProof({
           signer: keyPair.signer(), date,
-          cryptosuite: mldsa44JcsCryptosuite
+          cryptosuite: createSignCryptosuite()
         });
 
         let error;
@@ -169,7 +178,7 @@ describe('Mldsa44JcsCryptosuite', () => {
         const date = '2026-04-12T21:29:24Z';
         const suite = new DataIntegrityProof({
           signer: keyPair.signer(), date,
-          cryptosuite: mldsa44JcsCryptosuite
+          cryptosuite: createSignCryptosuite()
         });
 
         let error;
@@ -193,6 +202,7 @@ describe('Mldsa44JcsCryptosuite', () => {
       const date = '2026-04-12T21:29:24Z';
       const signer = keyPair.signer();
       signer.algorithm = 'wrong-algorithm';
+      const mldsa44JcsCryptosuite = createSignCryptosuite();
 
       let error;
       try {
@@ -225,7 +235,7 @@ describe('Mldsa44JcsCryptosuite', () => {
       const date = '2026-04-12T21:29:24Z';
       const suite = new DataIntegrityProof({
         signer: keyPair.signer(), date,
-        cryptosuite: mldsa44JcsCryptosuite
+        cryptosuite: createSignCryptosuite()
       });
 
       signedCredential = await jsigs.sign(unsignedCredential, {
@@ -237,7 +247,7 @@ describe('Mldsa44JcsCryptosuite', () => {
 
     it('should verify a document', async () => {
       const suite = new DataIntegrityProof({
-        cryptosuite: mldsa44JcsCryptosuite
+        cryptosuite: createVerifyCryptosuite()
       });
       const result = await jsigs.verify(signedCredential, {
         suite,
@@ -250,7 +260,7 @@ describe('Mldsa44JcsCryptosuite', () => {
 
     it('should fail verification if "proofValue" is not string', async () => {
       const suite = new DataIntegrityProof({
-        cryptosuite: mldsa44JcsCryptosuite
+        cryptosuite: createVerifyCryptosuite()
       });
       const signedCredentialCopy =
         JSON.parse(JSON.stringify(signedCredential));
@@ -271,7 +281,7 @@ describe('Mldsa44JcsCryptosuite', () => {
 
     it('should fail verification if "proofValue" is not given', async () => {
       const suite = new DataIntegrityProof({
-        cryptosuite: mldsa44JcsCryptosuite
+        cryptosuite: createVerifyCryptosuite()
       });
       const signedCredentialCopy =
         JSON.parse(JSON.stringify(signedCredential));
@@ -293,7 +303,7 @@ describe('Mldsa44JcsCryptosuite', () => {
     it('should fail verification if proofValue string does not start with "u"',
       async () => {
         const suite = new DataIntegrityProof({
-          cryptosuite: mldsa44JcsCryptosuite
+          cryptosuite: createVerifyCryptosuite()
         });
         const signedCredentialCopy =
           JSON.parse(JSON.stringify(signedCredential));
@@ -315,7 +325,7 @@ describe('Mldsa44JcsCryptosuite', () => {
     it('should fail verification if proof type is not DataIntegrityProof',
       async () => {
         const suite = new DataIntegrityProof({
-          cryptosuite: mldsa44JcsCryptosuite
+          cryptosuite: createVerifyCryptosuite()
         });
         const signedCredentialCopy =
           JSON.parse(JSON.stringify(signedCredential));

@@ -1,22 +1,16 @@
 # ML-DSA JCS 2024 Data Integrity Cryptosuite _(@digitalbazaar/mldsa44-jcs-2024-cryptosuite)_
 
-[![Build status](https://img.shields.io/github/actions/workflow/status/digitalbazaar/mldsa44-jcs-2024-cryptosuite/main.yml)](https://github.com/digitalbazaar/mldsa44-jcs-2024-cryptosuite/actions?query=workflow%3A%22Node.js+CI%22)
-[![Coverage status](https://img.shields.io/codecov/c/github/digitalbazaar/mldsa44-jcs-2024-cryptosuite)](https://codecov.io/gh/digitalbazaar/mldsa44-jcs-2024-cryptosuite)
-[![NPM Version](https://img.shields.io/npm/v/@digitalbazaar/mldsa44-jcs-2024-cryptosuite.svg)](https://npm.im/@digitalbazaar/mldsa44-jcs-2024-cryptosuite)
-
 > ML-DSA JCS 2024 Data Integrity Cryptosuite for use with jsonld-signatures.
 
 ## Table of Contents
 
-- [ML-DSA JCS 2024 Data Integrity Cryptosuite _(@digitalbazaar/mldsa44-jcs-2024-cryptosuite)_](#ml-dsa-jcs-2024-data-integrity-cryptosuite-digitalbazaarmldsa44-jcs-2024-cryptosuite)
-  - [Table of Contents](#table-of-contents)
-  - [Background](#background)
-  - [Security](#security)
-  - [Install](#install)
-  - [Usage](#usage)
-  - [Contribute](#contribute)
-  - [Commercial Support](#commercial-support)
-  - [License](#license)
+- [Background](#background)
+- [Security](#security)
+- [Install](#install)
+- [Usage](#usage)
+- [Contribute](#contribute)
+- [Commercial Support](#commercial-support)
+- [License](#license)
 
 ## Background
 
@@ -44,17 +38,20 @@ use the `mldsa44-rdfc-2024-cryptosuite` instead.
 
 ## Install
 
-- Browsers and Node.js 22+ are supported.
+This software requires and supports maintained recent versions of Node.js and
+browsers. Updates may remove support for older unmaintained platform versions.
+Please use dependency version lock files and testing to ensure compatibility
+with this software.
 
 To install from NPM:
 
-```
+```sh
 npm install @digitalbazaar/mldsa44-jcs-2024-cryptosuite
 ```
 
 To install locally (for development):
 
-```
+```sh
 git clone https://github.com/digitalbazaar/mldsa44-jcs-2024-cryptosuite.git
 cd mldsa44-jcs-2024-cryptosuite
 npm install

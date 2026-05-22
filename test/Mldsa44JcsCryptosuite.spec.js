@@ -11,11 +11,11 @@ import {
 } from './mock-data.js';
 
 import * as MldsaMultikey from '@digitalbazaar/mldsa-multikey';
-import {DataIntegrityProof} from '@digitalbazaar/data-integrity';
 import {
   createSignCryptosuite,
   createVerifyCryptosuite
 } from '../lib/index.js';
+import {DataIntegrityProof} from '@digitalbazaar/data-integrity';
 
 import {loader} from './documentLoader.js';
 
@@ -51,7 +51,6 @@ describe('Mldsa44JcsCryptosuite', () => {
 
       expect(error).to.not.exist;
       expect(result).to.exist;
-      /* eslint-disable max-len */
       const expectedResult =
         '{"@context":["https://www.w3.org/2018/credentials/v1",' +
         '{"AlumniCredential":"https://schema.org#AlumniCredential",' +
@@ -63,7 +62,6 @@ describe('Mldsa44JcsCryptosuite', () => {
         '"issuanceDate":"2010-01-01T19:23:24Z",' +
         '"issuer":"https://example.edu/issuers/565049",' +
         '"type":["VerifiableCredential","AlumniCredential"]}';
-      /* eslint-enable max-len */
       result.should.equal(expectedResult);
     });
   });

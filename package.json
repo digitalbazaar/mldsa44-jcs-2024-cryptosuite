@@ -1,6 +1,6 @@
 {
   "name": "@digitalbazaar/mldsa44-jcs-2024-cryptosuite",
-  "version": "1.0.0",
+  "version": "1.0.1-0",
   "description": "An ML-DSA 44 JCS Data Integrity cryptosuite for use with jsonld-signatures.",
   "homepage": "https://github.com/digitalbazaar/mldsa44-jcs-2024-cryptosuite",
   "repository": {

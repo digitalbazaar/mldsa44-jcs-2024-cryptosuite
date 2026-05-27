@@ -45,6 +45,8 @@ with this software.
 
 To install from NPM:
 
+https://www.npmjs.com/package/@digitalbazaar/mldsa44-jcs-2024-cryptosuite.git
+
 ```sh
 npm install @digitalbazaar/mldsa44-jcs-2024-cryptosuite
 ```
